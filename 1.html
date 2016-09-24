@@ -1,0 +1,46 @@
+<div class="modal-header no-padding">
+  <div class="table-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <span class="white">&times;</span> </button>
+    学生考勤 </div>
+</div>
+<div class="modal-body no-padding"> <form action="{:url('update')}" method="post">
+  <label>id:</label>
+  <input type="hidden" name="id" value="{$kechengbiao->getData('id')}" />
+  <input type="text" name="name" value="{$kechengbiao->getData('id')}" />
+  <label>kclass_id:</label>
+  <input type="text" name="kclass_id" value="{$kechengbiao->getData('kclass_id')}" />
+  <br>
+  <label>course_id:</label>
+  <input type="text" name="course_id" value="{$kechengbiao->getData('course_id')}" />
+  <br>
+  <label>student_id:</label>
+  <input type="text" name="student_id" value="{$kechengbiao->getData('student_id')}" />
+  <br>
+  <label>teacher_id:</label>
+  <input type="text" name="teacher_id" value="{$kechengbiao->getData('teacher_id')}" />
+  <br>
+  <label>class:</label>
+  <input type="text" name="class" value="{$kechengbiao->getData('class')}" />
+  <br>
+  <label>status:</label>
+  <select name="status">
+    <option value="1">正常</option>
+    <option value="2" {eq name="kechengbiao->getData('status')" value="2"}selected="selected"{/eq}>
+    旷课
+    </option>
+    <option value="3" {eq name="kechengbiao->getData('status')" value="3"}selected="selected"{/eq}>
+    请假
+    </option>
+    <option value="4" {eq name="kechengbiao->getData('status')" value="4"}selected="selected"{/eq}>
+    迟到
+    </option>
+    <option value="5" {eq name="kechengbiao->getData('status')" value="5"}selected="selected"{/eq}>
+    早退
+    </option>
+  </select>
+  <br>
+  <button type="submit">保存</button>
+</form></div>
+<div class="modal-footer no-margin-top">
+  <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal"> <i class="ace-icon fa fa-times"></i> Close </button>
+</div>

@@ -1,0 +1,12 @@
+{layout name="layout" /}
+<h2>用户列表（{$count}）</h2> 
+{volist name="list" id="teacher" }
+<div class="info">
+ID：{$teacher.id}<br/>
+姓名：{$teacher.name}<br/>
+密码：{$teacher.password}<br/>
+性别：{$teacher.sex}<br/>
+用户名：{$teacher.username}<br/>
+</div>
+{/volist}
+{$list->render()}
