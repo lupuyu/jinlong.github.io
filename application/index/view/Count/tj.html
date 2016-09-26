@@ -20,17 +20,17 @@
                 <td>迟到次数</td>
                 <td>早退次数</td>
             </tr>
-            {volist name="tongjia_info" id="tongjia_info"}
+            {volist name="tongjia_info" id="vo"}
             <tr>
-                <td>{$tongjia_info.num}</td>
-                <td></td>
-                <td></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>{$vo['0']}</td>
+                <td>{$vo['1']}</td>
+                <td>{$vo['2']}</td>
+                <td>{$vo['3']}</td>
+                <td>{$vo['4']}</td>
+                <td>{$vo['5']}</td>
+                <td>{$vo['6']}</td>
+                <td>{$vo['7']}</td>
+                <td>{$vo['8']}</td>
             </tr>
             {/volist}
         </tbody>
