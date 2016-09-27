@@ -1,6 +1,10 @@
 <?php
 namespace app\index\controller;
 use app\index\model\Kechengbiao;
+use app\index\model\Teacher;
+use app\index\model\Course;
+use app\index\model\Count;
+
 
 use think\Controller;
 /**
@@ -11,6 +15,11 @@ class KechengbiaoController extends IndexController
     public function index()
     {
         $teacherid=input('session.teacherId');
+        $courses = Teacher::get($teacherid);
+        $temp=$courses->courses;    
+
+        
+
         
 
         // $currentTime=time();//当前时间
@@ -19,11 +28,12 @@ class KechengbiaoController extends IndexController
         
 
         $kechengbiao = Kechengbiao::query('select * from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ?',[$teacherid]);
-        //$kechengbiao = Kechengbiao::whereTime('NOW_TIME', 'between', ['start_time', 'end_time'])->select();;
-         // dump($kechengbiao);
-         // die();
-        
+        $kechengbiao2 = Kechengbiao::query('select cname from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ? group by cname',[$teacherid]);
+        $kechengbiao3= Kechengbiao::query('select kname,kclass_id from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ? group by kname order by kclass_id asc',[$teacherid]);
+
+        halt($kechengbiao3);
         $this->assign('kechengbiao', $kechengbiao);
+        $this->assign('kechengbiao3', $kechengbiao3);
         $this->assign('count', count($kechengbiao));
 
         return $this->fetch();
