@@ -9,11 +9,17 @@ class TeacherController  extends IndexController
     // 获取教师数据列表
     public function index()
     {
-        $list = Teacher::all();
-        $list = Teacher::paginate(10);
-        $this->assign('list', $list);
-        $this->assign('count', count($list));
+        $teacherid=input('session.teacherId');
+        $teacher = Teacher::get($teacherid);
+        $this->assign('teacher', $teacher);
         return $this->fetch();
+        
+
+        // $list = Teacher::all();
+        // $list = Teacher::paginate(10);
+        // $this->assign('list', $list);
+        // $this->assign('count', count($list));
+        
         
     }
     // 新增教师数据
