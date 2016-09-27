@@ -184,7 +184,9 @@
                                 在线考勤
                                 <small>
                                     <i class="ace-icon fa fa-angle-double-right"></i>
-                                    对当前正在上课的学生进行考勤
+									{volist name="kechengbiao2" id="kechengbiao2"}
+									{$kechengbiao2.cname}
+									{/volist}
                                 </small>
                             </h1>
                     </div>
@@ -195,19 +197,19 @@
 								<span class="col-xs-6"> 班级信息 </span><!-- /.col -->		
 								<!-- /.col -->
 							</h3>
-							{volist name="kechengbiao3" id="kechengbiao3"}
+							{volist name="kechengbiao4" id="kechengbiao4"}
 							<div id="accordion" class="accordion-style1 panel-group">
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{$kechengbiao3.kclass_id}" aria-expanded="false">
+											<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{$kechengbiao4.kclass_id}" aria-expanded="false">
 												<i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
-												&nbsp;{$kechengbiao3.kname}														</a>													</h4>
+												&nbsp;{$kechengbiao4.kname}														</a>													</h4>
 									</div>
 	
-									<div class="panel-collapse collapse" id="collapse{$kechengbiao3.kclass_id}" aria-expanded="false" style="height: 0px;">
+									<div class="panel-collapse collapse" id="collapse{$kechengbiao4.kclass_id}" aria-expanded="false" style="height: 0px;">
 										<div class="panel-body">
-											Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.													</div>
+											{$kechengbiao4.name}<br>{$kechengbiao4.email}													</div>
 									</div>
 								</div>
 							{/volist}

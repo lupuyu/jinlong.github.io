@@ -30,10 +30,14 @@ class KechengbiaoController extends IndexController
         $kechengbiao = Kechengbiao::query('select * from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ?',[$teacherid]);
         $kechengbiao2 = Kechengbiao::query('select cname from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ? group by cname',[$teacherid]);
         $kechengbiao3= Kechengbiao::query('select kname,kclass_id from boyun_v_kechengbiao where current_TIMESTAMP() between start_time and end_time and teacher_id = ? group by kname order by kclass_id asc',[$teacherid]);
+        $kechengbiao4= Kechengbiao::query('SELECT DISTINCT  boyun_kclass.name kname,boyun_v_kechengbiao.kclass_id,boyun_teacher.name,boyun_teacher.email FROM   boyun_v_kechengbiao,boyun_kclass,boyun_teacher WHERE boyun_v_kechengbiao.kclass_id = boyun_kclass.id AND boyun_kclass.teacher_id = boyun_teacher.id AND CURRENT_TIMESTAMP () BETWEEN start_time AND end_time AND boyun_v_kechengbiao.teacher_id =  ?  order by kclass_id asc',[$teacherid]);
 
-        halt($kechengbiao3);
+
+
+
         $this->assign('kechengbiao', $kechengbiao);
-        $this->assign('kechengbiao3', $kechengbiao3);
+        $this->assign('kechengbiao2', $kechengbiao2);
+        $this->assign('kechengbiao4', $kechengbiao4);
         $this->assign('count', count($kechengbiao));
 
         return $this->fetch();
