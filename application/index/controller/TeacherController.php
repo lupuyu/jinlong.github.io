@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use app\index\model\Teacher;
+
 use think\Controller;
 
 class TeacherController  extends IndexController
@@ -22,11 +23,15 @@ class TeacherController  extends IndexController
         
         
     }
+
+
+
+
     // 新增教师数据
     public function add()
     {
     $Teacher = new Teacher;
-    if ($Teacher->allowField(true)->validate(true)->save(input('post.'))) {
+    if ($Teacher->allowField(true)->validate(true)->save(input(''))) {
         return '教师[ ' . $Teacher->name . ':' . $Teacher->id . ' ]新增成功';
     } else {
         return $Teacher->getError();
@@ -42,16 +47,36 @@ class TeacherController  extends IndexController
     }
     // 更新教师数据
     
-    public function update($id)
+    public function update()
     {
-        $teacher           = teacher::get($id);
-        $teacher->name = '刘晨';
-        $teacher->email    = 'liu21st@gmail.com';
-        if (false !== $teacher->save()) {
-            return '更新教师成功';
+        $Teacherid=input('session.teacherId');
+        $Teacher=Teacher::get($Teacherid);
+        // $Teacher->username = input('username');
+        // $Teacher->name = input('name');
+        // $Teacher->sex = input('sex');
+        // $Teacher->title = input('title');
+        // $Teacher->email = input('email');
+        // $Teacher->phone = input('phone');
+
+        if ( $Teacher->allowField(true)->validate(true)->save(input(''))) {
+            // 进行跳转
+        return $this->success('更新资料成功', url('index'));
         } else {
-            return $teacher->getError();
+            return $Teacher->getError();
         }
+        
+
+
+
+
+        // $teacher           = teacher::get($id);
+        // $teacher->name = '刘晨';
+        // $teacher->email    = 'liu21st@gmail.com';
+        // if (false !== $teacher->save()) {
+        //     return '更新教师成功';
+        // } else {
+        //     return $teacher->getError();
+        // 
     }
 
     // 删除教师数据

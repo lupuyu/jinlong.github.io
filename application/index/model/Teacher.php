@@ -83,11 +83,13 @@ class Teacher extends Model
         return $this->belongsToMany('Course', 'boyun_access');
     }
 
-    // status属性读取器
+    // sex属性读取器
     protected function getSexAttr($value)
     {
         $sex = [0 => '男', 01 => '女'];
         return $sex[$value];
     }
+
+    
     
 }

@@ -23,20 +23,12 @@ class UserController  extends IndexController
     public function add()
     {
         $user           = new User;
-        $user->name     = 'thinkphp';
-        $user->password = '123456';
-        $user->nickname = '流年';
-        if ($user->save()) {
-            // 写入关联数据
-            $profile['truename'] = '刘晨';
-            $profile['birthday'] = '1977-03-05';
-            $profile['address']  = '中国上海';
-            $profile['email']    = 'thinkphp@qq.com';
-            $user->profile()->save($profile);
-            return '用户[ ' . $user->name . ' ]新增成功';
-        } else {
-            return $user->getError();
-        }
+        
+        if ($user->allowField(true)->validate(true)->save(input('post.'))) {
+        return '用户[ ' . $user->nickname . ':' . $user->id . ' ]新增成功';
+    } else {
+        return $user->getError();
+    }
     }
 
     // http://127.0.0.1/login-demo/public/index.php/index/user/read?id=1
@@ -205,5 +197,11 @@ class UserController  extends IndexController
         // 删除关联数据 并同时删除关联模型数据
         $user->roles()->detach($role,true);
         return '用户角色删除成功';
+    }
+
+    // 创建用户数据页面
+    public function create()
+    {
+        return view();
     }
 }

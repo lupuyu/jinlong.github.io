@@ -14,13 +14,6 @@ return [
     '__pattern__'         => [
         'id'    => '\d+',
     ],
-    'teacher/index'      => 'index/teacher/index',
-    'teacher/create'     => 'index/teacher/create',
-    'teacher/add'        => 'index/teacher/add',
-    'teacher/add_list'   => 'index/teacher/addList',    
-    'teacher/update/:id' => 'index/teacher/update',
-    'teacher/delete/:id' => 'index/teacher/delete',
-    'teacher/:id'        => 'index/teacher/read',
     'user/index'      => 'index/user/index',
     'user/create'     => 'index/user/create',
     'user/add'        => 'index/user/add',
