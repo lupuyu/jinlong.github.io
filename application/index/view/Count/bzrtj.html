@@ -240,7 +240,12 @@
                                                 <td>{$vo['kclass']}
                                                 </td>
                                                 <td>
-                                                    {$vo['name']}
+                                                <!-- 旷课超过规定次数，名字显示标志修改 -->
+                                                {if condition="$vo.kk lt 2"} {$vo['name']}
+                                                {elseif condition="($vo.kk egt 4) "/}<span class="label label-danger"><i class="ace-icon fa fa-exclamation-triangle bigger-120"></i> {$vo['name']}</span>
+                                                {else /} <span class="label label-warning"><i class="ace-icon fa  fa-exclamation-circle bigger-120"></i> {$vo['name']}</span>
+                                                {/if}
+                                                    
                                                 </td>
                                                 <td>{$vo['kq']}</td>
                                                 <td>
@@ -318,7 +323,26 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                             </div>
+                                                            <div class="col-xs-12 col-sm-3">
+                                                                    
+                                                                <h4 class="header blue lighter less-margin">{$vo['name']}旷课详情</h4>
+
+                                                                <div class="space-6"></div>
+                                                                <div>
+                                                                {if condition="$vo.kk eq 0"}暂无旷课信息
+                                                                {else /} 
+                                                                <ul class="list-unstyled spaced">
+                                                                {$vo['kkmx']}
+                                                                </ul>
+                                                                {/if}
+                                                                
+                                                                </div>
+
+                                                                
+                                                            </div>
+
                                                             
                                                     </div>
                                 </div>

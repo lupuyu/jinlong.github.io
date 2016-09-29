@@ -105,15 +105,15 @@ class CountController extends IndexController
     	$tongjia_info = array();
     	
 
-    	$result = Count::view('kechengbiao','id,status')
-		    ->view('student',['num','kclass','name','phone','birth','nation','location'],'kechengbiao.student_id=student.id')
+    	$result = Count::view('v_kechengbiao','id,status,cname,end_time')
+		    ->view('student',['num','kclass','name','phone','birth','nation','location'],'v_kechengbiao.student_id=student.id')
 		    ->where('teacher_id',$teacherid)
 		    ->where('start_time','>=','2016-09-01')
 		    ->where('end_time','<=','2016-10-01')
-		    ->where('kechengbiao.kclass_id',$kclassid)
+		    ->where('v_kechengbiao.kclass_id',$kclassid)
 		    ->order('id desc')
 		    ->select();
-
+		    // halt($result);
 	    	$temp=count($result);
 			$this->assign('count', $temp);
 
@@ -121,7 +121,10 @@ class CountController extends IndexController
 			//判断是否为空
 			if(isset($tongjia_info[$row['num']])){
 			    
-			    if ($row['status']=='2')$tongjia_info[$row['num']]['kk'] +=1;
+			    if ($row['status']=='2'){
+            		$tongjia_info[$row['num']]['kk'] +=1;
+            		$tongjia_info[$row['num']]['kkmx']=$tongjia_info[$row['num']]['kkmx'].'<li class="text-danger"><i class="ace-icon fa fa-times bigger-110 red"></i>'.'<strong>'.$row['cname'].'</strong> [<span class="text-muted">'.$row['end_time'].'</span>]</li>';
+            	}
 			    else if($row['status'] == '3') $tongjia_info[$row['num']]['qj'] +=1;
 			    else if($row['status'] == '4') $tongjia_info[$row['num']]['cd'] +=1;
 			    else if($row['status'] == '5') $tongjia_info[$row['num']]['zt'] +=1;
@@ -141,7 +144,11 @@ class CountController extends IndexController
             	$tongjia_info[$row['num']]['qj']=0;
             	$tongjia_info[$row['num']]['cd']=0;
             	$tongjia_info[$row['num']]['zt']=0;
-            	if ($row['status']=='2')$tongjia_info[$row['num']]['kk'] +=1;
+            	$tongjia_info[$row['num']]['kkmx']='';
+            	if ($row['status']=='2'){
+            		$tongjia_info[$row['num']]['kk'] +=1;
+            		$tongjia_info[$row['num']]['kkmx']=$tongjia_info[$row['num']]['kkmx'].'<li class="text-danger"><i class="ace-icon fa fa-times bigger-110 red"></i>'.'<strong>'.$row['cname'].'</strong> [<span class="text-muted">'.time("Y/m/d",$row['end_time']).'</span>]</li>';
+            	}
 			    else if($row['status'] == '3') $tongjia_info[$row['num']]['qj'] +=1;
 			    else if($row['status'] == '4') $tongjia_info[$row['num']]['cd'] +=1;
 			    else if($row['status'] == '5') $tongjia_info[$row['num']]['zt'] +=1;
@@ -150,6 +157,7 @@ class CountController extends IndexController
 
 			}
 		}
+		// halt($tongjia_info);
 		$this->assign('tongjia_info', $tongjia_info);
             return $this->fetch();
 
