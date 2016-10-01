@@ -163,7 +163,7 @@
                     
                 </li>
                 <li class="">
-                    <a href="{:url('index/teacher')}">
+                    <a href="{:url('index/teacher/index')}">
                         <i class="menu-icon fa fa-list-alt"></i>
                         <span class="menu-text"> 资料修改 </span>
                     </a>
@@ -198,12 +198,16 @@
 					<div class="page-content">
 						<!-- /.ace-settings-container -->
 						<div class="page-header">
-							<h1>
-								考勤统计
-								<small>
-									<i class="ace-icon fa fa-angle-double-right"></i>
-									统计<strong class="red">	{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red">	{$kclasses1.name}</strong>的考勤							</small>							</h1>
+							<h1>辅导员考勤统计
+							</h1>
 						</div><!-- /.page-header -->
+						<div class="alert alert-info">
+											<button type="button" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>											</button>
+
+											统计<strong class="red">{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red">	{$kclasses1.name}</strong>所有学生的考勤		
+											<br>
+										</div>
 
 						<div class="row">
 							<div class="col-xs-12">
@@ -216,14 +220,14 @@
                                         <thead>
                                             <tr>
                                                 <th class="detail-col">详情</th>
-                                                <th>班级</th>
-                                                <th>姓名</th>
-												<th>考勤</th>
-                                                <th>正常</th>
-                                                <th>旷课</th>
-                                                <th>请假</th>
-												<th>迟到</th>
-												<th>早退</th>
+                                                <th class="detail-col">姓名</th>
+												<th class="detail-col">状态</th>
+												<th class="detail-col hidden-480">考勤</th>
+                                                <th class="detail-col hidden-480">正常</th>
+                                                <th class="detail-col hidden-480">旷课</th>
+                                                <th class="detail-col hidden-480">请假</th>
+												<th class="detail-col hidden-480">迟到</th>
+												<th class="detail-col hidden-480">早退</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -237,8 +241,7 @@
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td>{$vo['kclass']}
-                                                </td>
+                                                
                                                 <td>
                                                 <!-- 旷课超过规定次数，名字显示标志修改 -->
                                                 {if condition="$vo.kk lt 2"} {$vo['name']}
@@ -247,20 +250,27 @@
                                                 {/if}
                                                     
                                                 </td>
-                                                <td>{$vo['kq']}</td>
-                                                <td>
+												<td><div class="progress pos-rel" data-percent="66%">
+													<div class="progress-bar progress-bar-success" style="width: 35%;"></div>
+
+													<div class="progress-bar progress-bar-warning" style="width: 20%;"></div>
+
+													<div class="progress-bar progress-bar-danger" style="width: 10%;"></div>
+												</div></td>
+                                                <td class="hidden-480">{$vo['kq']}</td>
+                                                <td class="hidden-480">
                                                     {$vo['zc']}
                                                 </td>
-												<td>
+												<td class="hidden-480">
                                                     {$vo['kk']}
                                                 </td>
-												<td>
+												<td class="hidden-480">
                                                     {$vo['qj']}
                                                 </td>
-												<td>
+												<td class="hidden-480">
                                                     {$vo['cd']}
                                                 </td>
-												<td>
+												<td class="hidden-480">
                                                     {$vo['zt']}
                                                 </td>
                                                 

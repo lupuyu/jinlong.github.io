@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>在线考勤 - 河大体院</title>
+		<title>考勤统计 - 河大体院</title>
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -163,7 +163,7 @@
                     
                 </li>
                 <li class="">
-                    <a href="{:url('index/teacher')}">
+                    <a href="{:url('index/teacher/index')}">
                         <i class="menu-icon fa fa-list-alt"></i>
                         <span class="menu-text"> 资料修改 </span>
                     </a>
@@ -198,13 +198,18 @@
 					<div class="page-content">
 						<!-- /.ace-settings-container -->
 						<div class="page-header">
-							<h1>
-								考勤统计
-								<small>
-									<i class="ace-icon fa fa-angle-double-right"></i>
-									统计<strong class="red">	{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red">	{$course1.name}</strong>的考勤							</small>							</h1>
+						<h1>任课老师考勤统计
+							</h1>
+							
+							
 						</div><!-- /.page-header -->
+<div class="alert alert-info">
+											<button type="button" class="close" data-dismiss="alert">
+												<i class="ace-icon fa fa-times"></i>											</button>
 
+											统计<strong class="red">{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red">	{$course1.name}</strong>的所有学生的考勤情况		
+											<br>
+										</div>
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->								

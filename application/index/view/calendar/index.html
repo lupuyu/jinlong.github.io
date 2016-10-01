@@ -995,18 +995,7 @@
 
 		},*/
 		
-		/* 日程事件的拖动  */
-	    eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) { 
-	        $.post("{:U('Schedule/calendarDo')}",{id:event.id,daydiff:dayDelta, 
-		        minudiff:minuteDelta,allday:allDay,action:'drag'}, function(msg){
-              	if(msg==true){
-              		$('#calendar').fullCalendar('refetchEvents');
-                } else {
-                    alert(msg);
-                    revertFunc(); 
-                }
-           });
-	    },
+	
 		
 		editable: true,
 		droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -1039,7 +1028,7 @@
 		,
 		selectable: true,
 		selectHelper: true,
-		select: function(start, end, allDay) {
+		select: function(start, end, allDay,jsEvent) {
 			
 			bootbox.prompt("New Event Title:", function(title) {
 				if (title !== null) {
@@ -1052,9 +1041,12 @@
 							className: 'label-info'
 						},
 						true // make the event "stick"
+
 					);
+					
 				}
 			});
+			url:'baidu.com';
 			
 
 			calendar.fullCalendar('unselect');

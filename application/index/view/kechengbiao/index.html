@@ -180,23 +180,18 @@
                     
                     <!-- /.ace-settings-container -->
                     <div class="page-header">
-                        <h1>
-                                在线考勤
-                                <small>
-                                    <i class="ace-icon fa fa-angle-double-right"></i>
-									{volist name="kechengbiao2" id="kechengbiao2"}
-									{$kechengbiao2.cname}
-									{/volist}
-                                </small>
-                            </h1>
+					<h1>{volist name="kechengbiao2" id="kechengbiao2"}
+									<strong class="red">{$kechengbiao2.cname}</strong>
+									{/volist}考勤统计
+							</h1>
+                        
                     </div>
+					
+					
                     <!-- /.page-header -->
                     <div class="row">
-						<div class="col-sm-12">
-							<h3 class="row header smaller lighter blue">
-								<span class="col-xs-6"> 班级信息 </span><!-- /.col -->		
-								<!-- /.col -->
-							</h3>
+						<div class="col-xs-12">
+							
 							{volist name="kechengbiao4" id="kechengbiao4"}
 							<div id="accordion" class="accordion-style1 panel-group">
 								<div class="panel panel-default">
@@ -204,7 +199,7 @@
 										<h4 class="panel-title">
 											<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{$kechengbiao4.kclass_id}" aria-expanded="false">
 												<i class="bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
-												&nbsp;{$kechengbiao4.kname}														</a>													</h4>
+												&nbsp;查看<strong>{$kechengbiao4.kname}</strong>班级信息														</a>													</h4>
 									</div>
 	
 									<div class="panel-collapse collapse" id="collapse{$kechengbiao4.kclass_id}" aria-expanded="false" style="height: 0px;">
@@ -232,8 +227,7 @@
                                                 <th>姓名</th>
                                                 <th>性别</th>
                                                 <th class="hidden-480">学号</th>
-                                                <th class="hidden-480">考勤</th>
-                                                <th></th>
+                                                <th class="hidden-480">状态</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -255,43 +249,9 @@
                                                 <td>{$kechengbiao.sex}</td>
                                                 <td class="hidden-480">{$kechengbiao.num}</td>
                                                 <td class="hidden-480">
-                                                    <span class="label label-sm label-warning">{$kechengbiao.sname}</span>
+                                                    <span class="label label-success">{$kechengbiao.sname}</span>
                                                 </td>
-                                                <td>
-                                                    <div class="hidden-sm hidden-xs btn-group">
-                                                        <a class="btn btn-sm btn-primary" href="{:url('edit?id=' . $kechengbiao.id)}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;考勤</a>
-                                                    </div>
-                                                    <div class="hidden-md hidden-lg">
-                                                        <div class="inline pos-rel">
-                                                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                                                            </button>
-                                                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                                <li>
-                                                                    <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                                        <span class="blue">
-                                                                                <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                            </span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                                        <span class="green">
-                                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                            </span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                                        <span class="red">
-                                                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                            </span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
+
                                             </tr>
                                             <tr class="detail-row">
                                                 <td colspan="8">
