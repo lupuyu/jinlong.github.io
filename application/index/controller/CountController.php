@@ -30,7 +30,7 @@ class CountController extends IndexController
     	$course=input('post.co');
     	$course1=Course::get($course);
         $tongjia_info = array();
-        // halt($start_time);
+         
         $result = Count::view('kechengbiao','id,status')
 		    ->view('student',['num','kclass','name','phone','birth','nation','location'],'kechengbiao.student_id=student.id')
 		    ->where('teacher_id',$teacherid)
@@ -108,8 +108,8 @@ class CountController extends IndexController
     	$result = Count::view('v_kechengbiao','id,status,cname,end_time')
 		    ->view('student',['num','kclass','name','phone','birth','nation','location'],'v_kechengbiao.student_id=student.id')
 		    ->where('teacher_id',$teacherid)
-		    ->where('start_time','>=','2016-09-01')
-		    ->where('end_time','<=','2016-10-01')
+		    ->where('start_time','>=',$start_time)
+		    ->where('end_time','<=',$end_time)
 		    ->where('v_kechengbiao.kclass_id',$kclassid)
 		    ->order('id desc')
 		    ->select();
@@ -161,6 +161,69 @@ class CountController extends IndexController
 		$this->assign('tongjia_info', $tongjia_info);
             return $this->fetch();
 
+
+    }
+    //按照课程表查考勤
+    public function calendar()
+    {
+        $teacherid=input('session.teacherId');
+        $courses = Teacher::get($teacherid);
+        $temp=$courses->courses;
+        $this->assign('list',$temp);
+
+         return $this->fetch();
+    }
+
+
+
+  
+
+    public function calendarDo()
+    {    
+
+        
+
+        $teacherid=input('session.teacherId');
+        // $start='2016-10-05 08:00:00';
+        // $end='2016-10-05 10:00:00';
+        // $course_id='2';
+        echo '请求参数：';
+        
+        $start=input('start');
+        $end=input('end');
+        $starttime=date('Y-m-d H:i:s',(substr($start, 0,10)-28800));
+        $endtime=date('Y-m-d H:i:s',(substr($end, 0,10)-28800));
+        dump($starttime);
+        dump($endtime);
+        
+        
+
+
+
+        // $result=Count::table('boyun_v_kechengbiao','name,kname')
+        // ->where('teacher_id','eq',$teacherid)
+        // ->where('course_id',$course_id)
+        // ->where('start_time','EGT',$start)
+        // ->where('end_time','ELT',$end)
+        // ->where('status',2)
+        // ->select();
+
+        // foreach($result as $user){
+        //     echo '<i class="ace-icon fa fa-times bigger-110 red"></i>'.$user['name'];
+        //     echo '['.$user['kname'].']';
+        // }
+
+        
+    }
+
+    public function calendarJson(){
+        $teacherid=input('session.teacherId');
+        $data = array();
+
+         $result= Count::query('SELECT DISTINCT boyun_v_kechengbiao.start_time as start,boyun_v_kechengbiao.end_time as end,boyun_v_kechengbiao.teacher_id,boyun_v_kechengbiao.class as title,boyun_v_kechengbiao.color as color
+            FROM boyun_v_kechengbiao where  boyun_v_kechengbiao.teacher_id =  ?  ',[$teacherid]); 
+         echo json_encode($result);
+            // halt($result);
 
     }
 

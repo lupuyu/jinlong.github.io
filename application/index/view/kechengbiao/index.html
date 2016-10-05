@@ -68,7 +68,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="profile.html">
+                                <a href="{:url('index/teacher/index')}">
                                     <i class="ace-icon fa fa-user"></i> 资料
                                 </a>
                             </li>
@@ -139,13 +139,13 @@
                 <li class="">
                     <a href="{:url('index/count/bzr')}" >
                         <i class="menu-icon fa fa-pencil-square-o"></i>
-                        <span class="menu-text"> 学生管理 </span>
+                        <span class="menu-text"> 辅导员查课 </span>
                         <b class="arrow"></b>
                     </a>                 
                     
                 </li>
                 <li class="">
-                    <a href="{:url('index/teacher')}">
+                    <a href="{:url('index/teacher/index')}">
                         <i class="menu-icon fa fa-list-alt"></i>
                         <span class="menu-text"> 资料修改 </span>
                     </a>
@@ -204,7 +204,7 @@
 	
 									<div class="panel-collapse collapse" id="collapse{$kechengbiao4.kclass_id}" aria-expanded="false" style="height: 0px;">
 										<div class="panel-body">
-											{$kechengbiao4.name}<br>{$kechengbiao4.email}													</div>
+											辅导员：{$kechengbiao4.name}<br>联系方式：{$kechengbiao4.email}													</div>
 									</div>
 								</div>
 							{/volist}
@@ -314,7 +314,7 @@
                                                             </div>
                                                             <div class="col-xs-12 col-sm-3">
                                                                 <div class="space visible-xs"></div>
-                                                                <h4 class="header blue lighter less-margin">设置{$kechengbiao.name}考勤</h4>
+                                                                <h4 class="header blue lighter less-margin">设置<strong class="orange">{$kechengbiao.name}</strong>考勤</h4>
                                                                 <div class="space-6"></div>
                                                                 <form action="{:url('save')}" method="post">
                                                                 <input type="hidden" name="id" value="{$kechengbiao.id}" />

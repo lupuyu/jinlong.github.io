@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<script src='__STATIC__/fullcalendar/js/jquery.form.min.js'></script>
+
+<!-- fullcalendar -->
+<link rel="stylesheet" href="__STATIC__/fullcalendar/css/jquery-ui.css" />
+<link rel="stylesheet" href="__STATIC__/fullcalendar/css/fancybox.css" />
+<link rel="stylesheet"
+	href="__STATIC__/fullcalendar/css/fullcalendar.css" />
+
+<!-- datepicker  -->
+<script src='__STATIC__/My97DatePicker/WdatePicker.js'></script>
+
+<!-- jquery chose -->
+<link rel="stylesheet"
+	href="__STATIC__/jqueryChosen/docsupport/style.css" />
+<link rel="stylesheet"
+	href="__STATIC__/jqueryChosen/docsupport/prism.css" />
+<link rel="stylesheet" href="__STATIC__/jqueryChosen/chosen.css" />
+<script src='__STATIC__/jqueryChosen/chosen.jquery.js'></script>
+<script src='__STATIC__/jqueryChosen/docsupport/prism.js'></script>
+
+<!-- minicolor -->	
+<script src='__STATIC__/minicolor/jquery.minicolors.js'></script>
+<link rel="stylesheet" href="__STATIC__/minicolor/jquery.minicolors.css" />
+
+<script type="text/javascript">
+$(function(){ 
+    $('#add_form').ajaxForm({ 
+        beforeSubmit: showRequest,  
+        success: showResponse 
+    });
+    $("#del_event").click(function(){ 
+        if(confirm("您确定要删除吗？")){ 
+            var eventid = $("#eventid").val();
+            $.post("{:U('Schedule/calendarDo')}",{id:eventid,action:'del'}, function(msg){
+               	 if(msg===true){
+                     $.fancybox.close(); 
+                     $('#calendar').fullCalendar('refetchEvents'); 
+                 } else { 
+                     alert(msg);     
+                 }
+            });
+        } 
+    }); 
+    
+    jQuery(".dept_select").chosen();
+    
+    $('.demo').each( function() {
+		$(this).minicolors({
+			control: $(this).attr('data-control') || 'hue',
+			defaultValue: $(this).attr('data-defaultValue') || '',
+			inline: $(this).attr('data-inline') === 'true',
+			letterCase: $(this).attr('data-letterCase') || 'lowercase',
+			opacity: $(this).attr('data-opacity'),
+			position: $(this).attr('data-position') || 'bottom left',
+			change: function(hex, opacity) {
+				var log;
+				try {
+					log = hex ? hex : 'transparent';
+					if( opacity ) log += ', ' + opacity;
+					console.log(log);
+				} catch(e) {}
+			},
+			theme: 'default'
+		});
+    });
+    
+    $('#s_hour').find('option[value={$data.starttime|date='H',###}]').attr('selected',true);
+    $('#s_minute').find('option[value={$data.starttime|date='i',###}]').attr('selected',true);
+    $('#e_hour').find('option[value={$data.endtime|date='H',###}]').attr('selected',true);
+    $('#e_minute').find('option[value={$data.endtime|date='i',###}]').attr('selected',true);
+    
+    /* 备注限定18字以内 */
+	$("#memo").keyup(function() {
+		var value = $('#memo').val();
+		if(value.length>18){
+			$('#memo').val(value.substring(0,18));
+		}
+	});
+    
+}); 
+ 
+function showRequest() {
+}
+ 
+function showResponse(responseText, statusText, xhr, $form){ 
+    if(statusText=="success"){     
+        if(responseText===true){ 
+            $.fancybox.close();
+            $('#calendar').fullCalendar('refetchEvents'); 
+        }else{ 
+            alert(responseText); 
+        } 
+    }else{ 
+        alert(statusText); 
+    } 
+}  
+</script>
+<style type="text/css">
+body {
+	font-size: 12px;
+}
+</style>
+</head>
+<body>
+	<div class="fancy">
+		<h3>编辑事件</h3>
+		<form id="add_form" action="{:U('Schedule/calendarDo')}" method="post">
+			<input type="hidden" name="action" value="edit"> <input
+				type="hidden" name="id" id="eventid" value="{$data.id}">
+			<p id="p_course">
+				指定课程：<select data-placeholder="选择课程" style="width: 170px;"
+					class="dept_select" name="course_id" id="course_id">
+					<volist name='course' id='v'>
+					<option value="{$v.id}"
+						<if condition='$v["id"] eq $data["course_id"]'>selected="selected"</if>
+						>{$v.name_code}-{$v.course_name}
+					</option>
+					</volist>
+				</select>
+			</p>
+			<p id="p_student">
+				指定学生：<select data-placeholder="选择学生" style="width: 170px;"
+					class="dept_select" name="student_id" id="student_id">
+					<volist name='student' id='v'>
+					<option value="{$v.id}"
+						<if condition='$v["id"] eq $data["student_id"]'>selected="selected"</if>
+						>{$v.initial}-{$v.chinese_name} [{$v.a_chinese_name}]
+					</option>
+					</volist>
+				</select>
+			</p>
+			<p id="p_teacher">
+				指定教师：<select data-placeholder="选择教师" style="width: 170px;"
+					class="dept_select" name="user_id" id="user_id">
+					<volist name='teacher' id='v'>
+					<option value="{$v.id}"
+						<if condition='$v["id"] eq $data["user_id"]'>selected="selected"</if>
+						>{$v.name_code_initial}-{$v.name_code} ({$v.position})
+					</option>
+					</volist>
+				</select>
+			</p>
+			<p id="p_color">
+				颜&nbsp;&nbsp;色：<span id="sel_status">
+				<input name="color" style="height: 30px;" type="text" id="hue-demo" class="form-control demo minicolors-input" data-control="hue" value="{$data.color}" size="7">
+				</span>
+			</p>
+			<p>
+				开始时间：<input id="startdate" name="startdate" class="input datepicker"
+					type="text" value="{$data.starttime|date='Y-m-d',###}"
+					onClick="WdatePicker()" /> <span id="sel_start"> <select
+					name="s_hour" id="s_hour">
+						<option value="00">00</option>
+						<option value="01">01</option>
+						<option value="02">02</option>
+						<option value="03">03</option>
+						<option value="04">04</option>
+						<option value="05">05</option>
+						<option value="06">06</option>
+						<option value="07">07</option>
+						<option value="08">08</option>
+						<option value="09">09</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+				</select>: <select name="s_minute" id="s_minute">
+						<option value="00">00</option>
+						<option value="00">00</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="40">40</option>
+						<option value="50">50</option>
+				</select>
+				</span>
+			</p>
+			<p id="p_endtime">
+				结束时间：<input id="enddate" name="enddate" class="input datepicker"
+					type="text" value="{$data.endtime|date='Y-m-d',###}"
+					onClick="WdatePicker()" /> <span id="sel_end"> <select
+					name="e_hour" id="e_hour">
+						<option value="00">00</option>
+						<option value="01">01</option>
+						<option value="02">02</option>
+						<option value="03">03</option>
+						<option value="04">04</option>
+						<option value="05">05</option>
+						<option value="06">06</option>
+						<option value="07">07</option>
+						<option value="08">08</option>
+						<option value="09">09</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+				</select>: <select name="e_minute" id="e_minute">
+						<option value="00">00</option>
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="40">40</option>
+						<option value="50">50</option>
+				</select>
+				</span>
+			</p>
+			<p id="p_status">
+				状&nbsp;&nbsp;态：<span id="sel_status"> <select name="status">
+						<option value="0"
+							<if condition='$data["status"] == 0'>selected='selected'</if>
+							>上课
+						</option>
+						<option value="1"
+							<if condition='$data["status"] == 1'>selected='selected'</if>
+							>结课
+						</option>
+						<option value="2"
+							<if condition='$data["status"] == 2'>selected='selected'</if>
+							>加班
+						</option>
+						<option value="3"
+							<if condition='$data["status"] == 3'>selected='selected'</if>
+							>停课
+						</option>
+				</select>
+				</span>
+			</p>
+			<p>
+				备&nbsp;&nbsp;注：<input type="text" class="input" name="memo"
+					id="memo" style="width: 320px" placeholder="有什么特别注意的,20字以内..."
+					value="{$data.memo}">
+			</p>
+			<p id="p_tips" style="size:5px;">
+			创建：{$data.create_time|default=""|date='Y-m-d H:i',###} 更新：{$data.update_time|default=""|date='Y-m-d H:i',###} 末操作：{$data.last_operator}
+			</p>
+			<div class="sub_btn">
+				<span class="del"><input type="button" class="btn btn_del"
+					id="del_event" value="删除"></span> <input type="submit"
+					class="btn btn_ok" value="确定"> <input type="button"
+					class="btn btn_cancel" value="取消" onClick="$.fancybox.close()">
+			</div>
+		</form>
+	</div>
+</body>
+</html>

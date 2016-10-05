@@ -22,6 +22,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        return 'ooookkkkk';
+        // return '123';
+        $this->redirect("index/login/index"); //直接跳转，不带计时后跳转
     }
 }
