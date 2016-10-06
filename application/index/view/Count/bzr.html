@@ -39,7 +39,7 @@
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
-
+<link rel="stylesheet" href="/assets/css/site.css">
 		<!-- ace settings handler -->
 		<script src="/assets/js/ace-extra.min.js"></script>
 
@@ -52,133 +52,14 @@
 	</head>
 
 	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
-        <div class="navbar-container ace-save-state" id="navbar-container">
-            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-                <span class="sr-only">Toggle sidebar</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div class="navbar-header pull-left">
-                <a href="index.html" class="navbar-brand">
-                    <small>
-                            <i class="fa fa-leaf"></i>
-                            教务管理
-                        </small>
-                </a>
-            </div>
-            <div class="navbar-buttons navbar-header pull-right" role="navigation">
-                <ul class="nav ace-nav">
-                                        <li class="light-blue dropdown-modal">
-                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="/assets/images/avatars/user.jpg" alt="Jason's Photo" />
-                            <span class="user-info">
-                                    <small>Welcome,</small>
-                                    {$Request.Session.teacherName}
-                                </span>
-                            <i class="ace-icon fa fa-caret-down"></i>
-                        </a>
-                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#">
-                                    <i class="ace-icon fa fa-cog"></i> 设置
-                                </a>
-                            </li>
-                            <li>
-                                <a href="profile.html">
-                                    <i class="ace-icon fa fa-user"></i> 资料
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{:url('index/login/logout')}">
-                                    <i class="ace-icon fa fa-power-off"></i> 注销
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.navbar-container -->
-    </div>
+		{include file="common/navbar" /}
 
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
 
-			<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-            <script type="text/javascript">
-            try {
-                ace.settings.loadState('sidebar')
-            } catch (e) {}
-            </script>
-            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                    <button class="btn btn-success">
-                        <i class="ace-icon fa fa-signal"></i>
-                    </button>
-                    <button class="btn btn-info">
-                        <i class="ace-icon fa fa-pencil"></i>
-                    </button>
-                    <button class="btn btn-warning">
-                        <i class="ace-icon fa fa-users"></i>
-                    </button>
-                    <button class="btn btn-danger">
-                        <i class="ace-icon fa fa-cogs"></i>
-                    </button>
-                </div>
-                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                    <span class="btn btn-success"></span>
-                    <span class="btn btn-info"></span>
-                    <span class="btn btn-warning"></span>
-                    <span class="btn btn-danger"></span>
-                </div>
-            </div>
-            <!-- /.sidebar-shortcuts -->
-            <ul class="nav nav-list">
-                <li class="">
-                    <a href="{:url('index/kechengbiao/index')}">
-                        <i class="menu-icon fa fa-tachometer"></i>
-                        <span class="menu-text"> 在线考勤 </span>
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                
-                <li class="">
-                    <a href="{:url('index/count/index')}" >
-                        <i class="menu-icon fa fa-list"></i>
-                        <span class="menu-text"> 考勤统计 </span>
-                        <b class="arrow"></b>
-                    </a> 
-                </li>
-                <li class="">
-                    <a href="{:url('index/count/bzr')}" >
-                        <i class="menu-icon fa fa-pencil-square-o"></i>
-                        <span class="menu-text"> 辅导员查课 </span>
-                        <b class="arrow"></b>
-                    </a>                 
-                    
-                </li>
-                <li class="">
-                    <a href="{:url('index/teacher/index')}">
-                        <i class="menu-icon fa fa-list-alt"></i>
-                        <span class="menu-text"> 资料修改 </span>
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                
-                
-                
-                
-            </ul>
-            <!-- /.nav-list -->
-            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-            </div>
-        </div>
+			{include file="common/sidebar" /}
 
 			<div class="main-content">
 				<div class="main-content-inner">
@@ -236,20 +117,9 @@
 					</div><!-- /.page-content -->
 				</div>
 			</div><!-- /.main-content -->
-
-			<div class="footer">
-        <div class="footer-inner">
-            <div class="footer-content">
-                <span class="bigger-120">
-                            <span class="blue bolder">河大体院</span> 教务管理 &copy; 2016
-                </span>
-            </div>
-        </div>
-    </div>
-
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>			</a>		</div><!-- /.main-container -->
-
+			{include file="common/footer" /}
+					</div><!-- /.main-container -->
+		
 		<!-- basic scripts -->
 
 		<!--[if !IE]> -->

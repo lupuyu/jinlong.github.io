@@ -1,435 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>辅导员查课 - 河大体院</title>
-
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-
-		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" />
-		<link rel="stylesheet" href="/assets/css/chosen.min.css" />
-		<link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css" />
-		<link rel="stylesheet" href="/assets/css/bootstrap-timepicker.min.css" />
-		<link rel="stylesheet" href="/assets/css/daterangepicker.min.css" />
-		<link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css" />
-		<link rel="stylesheet" href="/assets/css/bootstrap-colorpicker.min.css" />
-
-
-		<!-- text fonts -->
-		<link rel="stylesheet" href="/assets/css/fonts.googleapis.com.css" />
-
-		<!-- ace styles -->
-		<link rel="stylesheet" href="/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-
-		<!--[if lte IE 9]>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<title>辅导员查课 - 河大体院</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+<!-- page specific plugin styles -->
+<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" />
+<link rel="stylesheet" href="/assets/css/chosen.min.css" />
+<link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css" />
+<link rel="stylesheet" href="/assets/css/bootstrap-timepicker.min.css" />
+<link rel="stylesheet" href="/assets/css/daterangepicker.min.css" />
+<link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" href="/assets/css/bootstrap-colorpicker.min.css" />
+<!-- text fonts -->
+<link rel="stylesheet" href="/assets/css/fonts.googleapis.com.css" />
+<!-- ace styles -->
+<link rel="stylesheet" href="/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+<!--[if lte IE 9]>
 			<link rel="stylesheet" href="/assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
 		<![endif]-->
-		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
-		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
-
-		<!--[if lte IE 9]>
+<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
+<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
 		<![endif]-->
-
-		<!-- inline styles related to this page -->
-
-		<!-- ace settings handler -->
-		<script src="/assets/js/ace-extra.min.js"></script>
-
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-		<!--[if lte IE 8]>
+<!-- inline styles related to this page -->
+<link rel="stylesheet" href="/assets/css/site.css">
+<!-- ace settings handler -->
+<script src="/assets/js/ace-extra.min.js"></script>
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+<!--[if lte IE 8]>
 		<script src="/assets/js/html5shiv.min.js"></script>
 		<script src="/assets/js/respond.min.js"></script>
 		<![endif]-->
-	</head>
-
-	<body class="no-skin">
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
-        <div class="navbar-container ace-save-state" id="navbar-container">
-            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-                <span class="sr-only">Toggle sidebar</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div class="navbar-header pull-left">
-                <a href="index.html" class="navbar-brand">
-                    <small>
-                            <i class="fa fa-leaf"></i>
-                            教务管理
-                        </small>
-                </a>
-            </div>
-            <div class="navbar-buttons navbar-header pull-right" role="navigation">
-                <ul class="nav ace-nav">
-                                        <li class="light-blue dropdown-modal">
-                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="/assets/images/avatars/user.jpg" alt="Jason's Photo" />
-                            <span class="user-info">
-                                    <small>Welcome,</small>
-                                    {$Request.Session.teacherName}
-                                </span>
-                            <i class="ace-icon fa fa-caret-down"></i>
-                        </a>
-                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                            <li>
-                                <a href="#">
-                                    <i class="ace-icon fa fa-cog"></i> 设置
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{:url('index/teacher/index')}">
-                                    <i class="ace-icon fa fa-user"></i> 资料
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{:url('index/login/logout')}">
-                                    <i class="ace-icon fa fa-power-off"></i> 注销
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.navbar-container -->
-    </div>
-
-		<div class="main-container ace-save-state" id="main-container">
-			<script type="text/javascript">
+</head>
+<body class="no-skin">
+{include file="common/navbar" /}
+<div class="main-container ace-save-state" id="main-container">
+  <script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
-
-			<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-            <script type="text/javascript">
-            try {
-                ace.settings.loadState('sidebar')
-            } catch (e) {}
-            </script>
-            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                    <button class="btn btn-success">
-                        <i class="ace-icon fa fa-signal"></i>
-                    </button>
-                    <button class="btn btn-info">
-                        <i class="ace-icon fa fa-pencil"></i>
-                    </button>
-                    <button class="btn btn-warning">
-                        <i class="ace-icon fa fa-users"></i>
-                    </button>
-                    <button class="btn btn-danger">
-                        <i class="ace-icon fa fa-cogs"></i>
-                    </button>
-                </div>
-                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                    <span class="btn btn-success"></span>
-                    <span class="btn btn-info"></span>
-                    <span class="btn btn-warning"></span>
-                    <span class="btn btn-danger"></span>
-                </div>
-            </div>
-            <!-- /.sidebar-shortcuts -->
-            <ul class="nav nav-list">
-                <li class="">
-                    <a href="{:url('index/kechengbiao/index')}">
-                        <i class="menu-icon fa fa-tachometer"></i>
-                        <span class="menu-text"> 在线考勤 </span>
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                
-                <li class="">
-                    <a href="{:url('index/count/index')}" >
-                        <i class="menu-icon fa fa-list"></i>
-                        <span class="menu-text"> 考勤统计 </span>
-                        <b class="arrow"></b>
-                    </a> 
-                </li>
-                <li class="">
-                    <a href="{:url('index/count/bzr')}" >
-                        <i class="menu-icon fa fa-pencil-square-o"></i>
-                        <span class="menu-text"> 辅导员查课 </span>
-                        <b class="arrow"></b>
-                    </a>                 
-                    
-                </li>
-                <li class="">
-                    <a href="{:url('index/teacher/index')}">
-                        <i class="menu-icon fa fa-list-alt"></i>
-                        <span class="menu-text"> 资料修改 </span>
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                
-                
-                
-                
-            </ul>
-            <!-- /.nav-list -->
-            <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-            </div>
+  {include file="common/sidebar" /}
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li> <i class="ace-icon fa fa-home home-icon"></i> <a href="#">教务管理</a> </li>
+          <li class="active">考勤统计</li>
+        </ul>
+        <!-- /.breadcrumb -->
+        <!-- /.nav-search -->
+      </div>
+      <div class="page-content">
+        <!-- /.ace-settings-container -->
+        <div class="page-header">
+          <h1>辅导员考勤统计 </h1>
         </div>
-
-			<div class="main-content">
-				<div class="main-content-inner">
-					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li>
-								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="#">教务管理</a>							</li>
-
-							
-							<li class="active">考勤统计</li>
-						</ul><!-- /.breadcrumb -->
-
-						<!-- /.nav-search -->
-					</div>
-
-					<div class="page-content">
-						<!-- /.ace-settings-container -->
-						<div class="page-header">
-							<h1>辅导员考勤统计
-							</h1>
-						</div><!-- /.page-header -->
-						<div class="alert alert-info">
-											<button type="button" class="close" data-dismiss="alert">
-												<i class="ace-icon fa fa-times"></i>											</button>
-
-											统计<strong class="red">{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red">	{$kclasses1.name}</strong>所有学生的考勤		
-											<br>
-										</div>
-
-						<div class="row">
-							<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->								
-								
-								<div class="row">
-                                <div class="col-xs-12">
-                                {switch name="count" } {case value="0" }目前暂无需要考勤的课程{/case} {default /}
-                                    <table id="simple-table" class="table  table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th class="detail-col">详情</th>
-                                                <th class="detail-col">姓名</th>
-												<th class="detail-col">状态</th>
-												<th class="detail-col hidden-480">考勤</th>
-                                                <th class="detail-col hidden-480">正常</th>
-                                                <th class="detail-col hidden-480">旷课</th>
-                                                <th class="detail-col hidden-480">请假</th>
-												<th class="detail-col hidden-480">迟到</th>
-												<th class="detail-col hidden-480">早退</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {volist name="tongjia_info" id="vo"}
-                                            <tr>
-                                                <td class="center">
-                                                    <div class="action-buttons">
-                                                        <a href="#" class="green bigger-140 show-details-btn" title="Show Details">
-                                                            <i class="ace-icon fa fa-angle-double-down"></i>
-                                                            <span class="sr-only">Details</span>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                                
-                                                <td>
-                                                <!-- 旷课超过规定次数，名字显示标志修改 -->
-                                                {if condition="$vo.kk lt 2"} {$vo['name']}
-                                                {elseif condition="($vo.kk egt 4) "/}<span class="label label-danger"><i class="ace-icon fa fa-exclamation-triangle bigger-120"></i> {$vo['name']}</span>
-                                                {else /} <span class="label label-warning"><i class="ace-icon fa  fa-exclamation-circle bigger-120"></i> {$vo['name']}</span>
-                                                {/if}
-                                                    
-                                                </td>
-												<td><div class="progress pos-rel" data-percent="66%">
-													<div class="progress-bar progress-bar-success" style="width: 35%;"></div>
-
-													<div class="progress-bar progress-bar-warning" style="width: 20%;"></div>
-
-													<div class="progress-bar progress-bar-danger" style="width: 10%;"></div>
-												</div></td>
-                                                <td class="hidden-480">{$vo['kq']}</td>
-                                                <td class="hidden-480">
-                                                    {$vo['zc']}
-                                                </td>
-												<td class="hidden-480">
-                                                    {$vo['kk']}
-                                                </td>
-												<td class="hidden-480">
-                                                    {$vo['qj']}
-                                                </td>
-												<td class="hidden-480">
-                                                    {$vo['cd']}
-                                                </td>
-												<td class="hidden-480">
-                                                    {$vo['zt']}
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr class="detail-row">
-                                                <td colspan="8">
-                                                    <div class="table-detail">
-                                                        <div class="row">
-                                                            <div class="col-xs-12 col-sm-2">
-                                                                <div class="text-center">
-                                                                    <img height="150" class="thumbnail inline no-margin-bottom" alt="Domain Owner's Avatar" src="/assets/images/avatars/profile-pic.jpg" />
-                                                                    <br />
-                                                                    <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
-                                                                        <div class="inline position-relative">
-                                                                            <a class="user-title-label" href="#">
-                                                                                <i class="ace-icon fa fa-circle light-green"></i> &nbsp;
-                                                                                <span class="white">{$vo['name']}</span>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-7">
-                                                                <div class="space visible-xs"></div>
-                                                                <div class="profile-user-info profile-user-info-striped">
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 姓名 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['name']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 班级 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['kclass']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 出生日期 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['birth']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 民族 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['nation']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 籍贯 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['location']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> 电话 </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span>{$vo['phone']}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-xs-12 col-sm-3">
-                                                                    
-                                                                <h4 class="header blue lighter less-margin">{$vo['name']}旷课详情</h4>
-
-                                                                <div class="space-6"></div>
-                                                                <div>
-                                                                {if condition="$vo.kk eq 0"}暂无旷课信息
-                                                                {else /} 
-                                                                <ul class="list-unstyled spaced">
-                                                                {$vo['kkmx']}
-                                                                </ul>
-                                                                {/if}
-                                                                
-                                                                </div>
-
-                                                                
-                                                            </div>
-
-                                                            
-                                                    </div>
-                                </div>
-                                </td>
-                                </tr>
-                                			{/volist}
-                                </tbody>
-                                    </table>
-                                    {/switch}
-                                </div>
-                            <!-- /.span -->
+        <!-- /.page-header -->
+        <div class="alert alert-info">
+          <button type="button" class="close" data-dismiss="alert"> <i class="ace-icon fa fa-times"></i> </button>
+          <p>统计<strong class="red">{$Request.param.start}</strong>至<strong class="red">{$Request.param.end}</strong>期间，<strong class="red"> {$kclasses1.name}</strong>所有学生的考勤</p>
+          <p><strong> <i class="ace-icon fa fa-check"></i> 注意！ </strong> <i class="fa fa-flag orange bigger-130"></i> 表示已达警告条件； <i class="fa fa-flag red bigger-130"></i> 表示已达危险条件</p>
+        </div>
+        <div class="alert alert-block alert-success">
+          <button type="button" class="close" data-dismiss="alert"> <i class="ace-icon fa fa-times"></i> </button>
+          <p><strong> <i class="ace-icon fa fa-bullhorn"></i> 小贴士！ </strong><strong class="red">进度条</strong>表示当前学生距离最终处理条件的进度，进度条颜色表示<strong class="red">已经达到</strong>的处理条件！</p>
+          <p>目前测试条件下设定</p>
+          <p>
+          <ul class="list-inline">
+            <li>小于33.33%为 <span class="label label-success">正常</span> </li>
+            <li><span class="orange">33.33%-66.66% </span><span class="label label-warning">警告</span></li>
+            <li><span class="red">大于等于66.66%为 </span><span class="label label-danger">危险</span></li>
+          </ul>
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+              <div class="col-xs-12"> {switch name="count" } {case value="0" }目前暂无需要考勤的课程{/case} {default /}
+                <table id="simple-table" class="table  table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th class="detail-col">详情</th>
+                      <th>姓名</th>
+                      <th>状态</th>
+                      <th class="hidden-480">考勤</th>
+                      <th class="hidden-480">正常</th>
+                      <th class="hidden-480">旷课</th>
+                      <th class="hidden-480">请假</th>
+                      <th class="hidden-480">迟到</th>
+                      <th class="hidden-480">早退</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  {volist name="tongjia_info" id="vo"}
+                  <tr>
+                    <td class="center"><div class="action-buttons"> <a href="#" class="green bigger-140 show-details-btn" title="Show Details"> <i class="ace-icon fa fa-angle-double-down"></i> <span class="sr-only">Details</span> </a> </div></td>
+                    <td><!-- 旷课超过规定次数，名字显示标志修改 -->
+                      {if condition="$vo.kk lt 2"} {$vo['name']}
+                      {elseif condition="($vo.kk egt 4) "/}<span>{$vo['name']} </span><i class="fa fa-flag red bigger-130"></i> {else /} <span">{$vo['name']} </span><i class="fa fa-flag orange bigger-130"></i> {/if} </td>
+                    <td><div class="progress pos-rel" data-percent="{$vo['bfb']}%" style="background:#ccc;"> {if condition="$vo.bfb lt 33.33"}
+                        <div class="progress-bar progress-bar-success" style="width: {$vo['bfb']}%;"></div>
+                        {elseif condition="($vo.bfb egt 66.66) "/}
+                        <div class="progress-bar progress-bar-danger" style="width: {$vo['bfb']}%;"></div>
+                        {else /}
+                        <div class="progress-bar progress-bar-warning" style="width: {$vo['bfb']}%;"></div>
+                        {/if} </div></td>
+                    <td class="hidden-480">{$vo['kq']}</td>
+                    <td class="hidden-480"> {$vo['zc']} </td>
+                    <td class="hidden-480"> {$vo['kk']} </td>
+                    <td class="hidden-480"> {$vo['qj']} </td>
+                    <td class="hidden-480"> {$vo['cd']} </td>
+                    <td class="hidden-480"> {$vo['zt']} </td>
+                  </tr>
+                  <tr class="detail-row">
+                    <td colspan="8"><div class="table-detail">
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-2">
+                            <div class="text-center"> <img height="150" class="thumbnail inline no-margin-bottom" alt="Domain Owner's Avatar" src="/assets/images/avatars/profile-pic.jpg" /> <br />
+                              <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                <div class="inline position-relative"> <a class="user-title-label" href="#"> <i class="ace-icon fa fa-circle light-green"></i> &nbsp; <span class="white">{$vo['name']}</span> </a> </div>
+                              </div>
                             </div>
-								
-							<div class="hide">
-                            <div class="col-xs-12">
-                                <!-- div.table-responsive -->
-                                <!-- div.dataTables_borderWrap -->
-                                <div>
-                                    <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                                    </table>
-                                </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-7">
+                            <div class="space visible-xs"></div>
+                            <div class="profile-user-info profile-user-info-striped">
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 姓名 </div>
+                                <div class="profile-info-value"> <span>{$vo['name']}</span> </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 班级 </div>
+                                <div class="profile-info-value"> <span>{$vo['kclass']}</span> </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 出生日期 </div>
+                                <div class="profile-info-value"> <span>{$vo['birth']}</span> </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 民族 </div>
+                                <div class="profile-info-value"> <span>{$vo['nation']}</span> </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 籍贯 </div>
+                                <div class="profile-info-value"> <span>{$vo['location']}</span> </div>
+                              </div>
+                              <div class="profile-info-row">
+                                <div class="profile-info-name"> 电话 </div>
+                                <div class="profile-info-value"> <span>{$vo['phone']}</span> </div>
+                              </div>
                             </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-3">
+                            <h4 class="header blue lighter less-margin">{$vo['name']}旷课详情</h4>
+                            <div class="space-6"></div>
+                            <div> {if condition="$vo.kk eq 0"}暂无旷课信息
+                              {else /}
+                              <ul class="list-unstyled spaced">
+                                {$vo['kkmx']}
+                              </ul>
+                              {/if} </div>
+                          </div>
                         </div>
-								<!-- PAGE CONTENT ENDS -->
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-					</div><!-- /.page-content -->
-				</div>
-			</div><!-- /.main-content -->
-
-			<div class="footer">
-        <div class="footer-inner">
-            <div class="footer-content">
-                <span class="bigger-120">
-                            <span class="blue bolder">河大体院</span> 教务管理 &copy; 2016
-                </span>
+                      </div></td>
+                  </tr>
+                  {/volist}
+                  </tbody>
+                  
+                </table>
+                {/switch} </div>
+              <!-- /.span -->
             </div>
+            <div class="hide">
+              <div class="col-xs-12">
+                <!-- div.table-responsive -->
+                <!-- div.dataTables_borderWrap -->
+                <div>
+                  <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+          </div>
+          <!-- /.col -->
         </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.page-content -->
     </div>
-
-			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>			</a>		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src="/assets/js/jquery-2.1.4.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
+  </div>
+  <!-- /.main-content -->
+  {include file="common/footer" /} </div>
+<!-- /.main-container -->
+<!-- basic scripts -->
+<!--[if !IE]> -->
+<script src="/assets/js/jquery-2.1.4.min.js"></script>
+<!-- <![endif]-->
+<!--[if IE]>
 <script src="/assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
-		<script type="text/javascript">
+<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="/assets/js/bootstrap.min.js"></script>
-
-		<!-- page specific plugin scripts -->
-    <script src="/assets/js/jquery.dataTables.min.js"></script>
-    <script src="/assets/js/jquery.dataTables.bootstrap.min.js"></script>
-    <script src="/assets/js/dataTables.buttons.min.js"></script>
-    <script src="/assets/js/buttons.flash.min.js"></script>
-    <script src="/assets/js/buttons.html5.min.js"></script>
-    <script src="/assets/js/buttons.print.min.js"></script>
-    <script src="/assets/js/buttons.colVis.min.js"></script>
-    <script src="/assets/js/dataTables.select.min.js"></script>
-    <script src="/assets/js/bootbox.js"></script>
-    <script src="assets/js/jquery-ui.custom.min.js"></script>
-    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-
-		<!-- ace scripts -->
-		<script src="/assets/js/ace-elements.min.js"></script>
-		<script src="/assets/js/ace.min.js"></script>
-
-		<!-- inline scripts related to this page -->
-		<script type="text/javascript">
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- page specific plugin scripts -->
+<script src="/assets/js/jquery.dataTables.min.js"></script>
+<script src="/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="/assets/js/dataTables.buttons.min.js"></script>
+<script src="/assets/js/buttons.flash.min.js"></script>
+<script src="/assets/js/buttons.html5.min.js"></script>
+<script src="/assets/js/buttons.print.min.js"></script>
+<script src="/assets/js/buttons.colVis.min.js"></script>
+<script src="/assets/js/dataTables.select.min.js"></script>
+<script src="/assets/js/bootbox.js"></script>
+<script src="assets/js/jquery-ui.custom.min.js"></script>
+<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+<!-- ace scripts -->
+<script src="/assets/js/ace-elements.min.js"></script>
+<script src="/assets/js/ace.min.js"></script>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
     jQuery(function($) {
         //initiate dataTables plugin
         var myTable =
@@ -694,5 +493,5 @@
 
     })
     </script>
-	</body>
+</body>
 </html>

@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>Full Calendar - Ace Admin</title>
+		<title>辅导员查课 - 河大体院</title>
 
 		<meta name="description" content="with draggable and editable events" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -33,7 +33,8 @@
 		<![endif]-->
 
 		<!-- inline styles related to this page -->
-		<link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
+
 		<!-- ace settings handler -->
 		<script src="/assets/js/ace-extra.min.js"></script>
 
@@ -61,8 +62,9 @@
 						<ul class="breadcrumb">
 							<li>
 								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="#">Home</a>							</li>
-							<li class="active">Calendar</li>
+								<a href="#">教务管理</a>
+							</li>
+							<li class="active">考勤查询</li>
 						</ul><!-- /.breadcrumb -->
 
 						<!-- /.nav-search -->
@@ -73,68 +75,27 @@
 
 						<div class="page-header">
 							<h1>
-								Full Calendar
+								按照课程表查看考勤
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									with draggable and editable events								</small>							</h1>
+									单击课程显示当前课程考勤情况
+								</small>
+							</h1>
 						</div><!-- /.page-header -->
+						
 
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<div class="row">
-									<div class="col-sm-9">
+								
+									
 										<div class="space"></div>
 
 										<div id="calendar"></div>
-									</div>
+									
 
-									<div class="col-sm-3">
-										<div class="widget-box transparent">
-											<div class="widget-header">
-												<h4>Draggable events</h4>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main no-padding">
-													<div id="external-events">
-														<div class="external-event label-grey" data-class="label-grey">
-															<i class="ace-icon fa fa-arrows"></i>
-															14民传一班														</div>
-
-														<div class="external-event label-success" data-class="label-success">
-															<i class="ace-icon fa fa-arrows"></i>
-															14民传二班														</div>
-
-														<div class="external-event label-danger" data-class="label-danger">
-															<i class="ace-icon fa fa-arrows"></i>
-															14民传三班													</div>
-
-														<div class="external-event label-purple" data-class="label-purple">
-															<i class="ace-icon fa fa-arrows"></i>
-															My Event 4														</div>
-
-														<div class="external-event label-yellow" data-class="label-yellow">
-															<i class="ace-icon fa fa-arrows"></i>
-															My Event 5														</div>
-
-														<div class="external-event label-pink" data-class="label-pink">
-															<i class="ace-icon fa fa-arrows"></i>
-															My Event 6														</div>
-
-														<div class="external-event label-info" data-class="label-info">
-															<i class="ace-icon fa fa-arrows"></i>
-															My Event 7														</div>
-
-														<label>
-															<input type="checkbox" class="ace ace-checkbox" id="drop-remove" />
-															<span class="lbl"> Remove after drop</span>														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+									
+								
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
@@ -143,7 +104,8 @@
 				</div>
 			</div><!-- /.main-content -->
 
-			{include file="common/footer" /}		</div><!-- /.main-container -->
+			{include file="common/footer" /}
+		</div><!-- /.main-container -->
 
 		<!-- basic scripts -->
 
@@ -156,7 +118,7 @@
 <script src="/assets/js/jquery-1.11.3.min.js"></script>
 <![endif]-->
 		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
 		<script src="/assets/js/bootstrap.min.js"></script>
 
@@ -165,8 +127,9 @@
 		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/assets/js/moment.min.js"></script>
 		<script src="/assets/js/fullcalendar.min.js"></script>
-		<script src='/assets/js/locale-all.js'></script>
-		<script src="/assets/js/bootbox.js"></script>
+        <script src='/assets/js/locale-all.js'></script>
+        <script src="/assets/js/bootbox.js"></script>
+		<script src="/assets/js/jquery.fancybox-1.3.1.pack.js"></script>
 
 		<!-- ace scripts -->
 		<script src="/assets/js/ace-elements.min.js"></script>
@@ -209,6 +172,8 @@
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
+	var initialLocaleCode = 'zh-cn';
+
 
 
 	var calendar = $('#calendar').fullCalendar({
@@ -225,8 +190,12 @@
 			center: 'title',
 			right: 'month,agendaWeek,agendaDay'
 		},
-		events: '{:url('index/calendar/json')}',
-		locale: 'zh-cn',
+
+ 		locale: initialLocaleCode,
+ 		timeFormat: 'H:mm' ,
+		Timezone:'local',
+		
+		events: '{:url('index/count/calendarJsonbzr')}',
 		
 		/**eventResize: function(event, delta, revertFunc) {
 
@@ -238,9 +207,7 @@
 
 		},*/
 		
-	
-		
-		editable: true,
+		editable: false,
 		droppable: true, // this allows things to be dropped onto the calendar !!!
 		drop: function(date) { // this function is called when something is dropped
 		
@@ -269,67 +236,62 @@
 			
 		}
 		,
-		selectable: true,
+		selectable: false,
 		selectHelper: true,
-		select: function(start, end, allDay,jsEvent) {
+		select: function(start, end, allDay) {
 			
-			bootbox.dialog(
-				message: '<p class="text-center">Please wait while we do something...</p>',
+
+		
+			bootbox.prompt("New Event Title:", function(title) {
+				if (title !== null) {
+					calendar.fullCalendar('renderEvent',
+						{
+							title: title,
+							start: start,
+							end: end,
+							allDay: allDay,
+							className: 'label-info'
+						},
+						true // make the event "stick"
+					);
+				}
 			});
 			
 
 			calendar.fullCalendar('unselect');
-		},
+		}
+		,
 		eventClick: function(calEvent, jsEvent, view) {
-
-			//display a modal
-			var modal = 
-			'<div class="modal fade">\
-			  <div class="modal-dialog">\
-			   <div class="modal-content">\
-				 <div class="modal-body">\
-				   <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">&times;</button>\
-				   <form class="no-margin">\
-					  <label>Change event name &nbsp;</label>\
-					  <input class="middle" autocomplete="off" type="text" value="' + calEvent.title + '" />\
-					 <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Save</button>\
-				   </form>\
-				 </div>\
-				 <div class="modal-footer">\
-					<button type="button" class="btn btn-sm btn-danger" data-action="delete"><i class="ace-icon fa fa-trash-o"></i> Delete Event</button>\
-					<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
-				 </div>\
-			  </div>\
-			 </div>\
-			</div>';
-		
-		
-			var modal = $(modal).appendTo('body');
-			modal.find('form').on('submit', function(ev){
-				ev.preventDefault();
-
-				calEvent.title = $(this).find("input[type=text]").val();
-				calendar.fullCalendar('updateEvent', calEvent);
-				modal.modal("hide");
-			});
-			modal.find('button[data-action=delete]').on('click', function() {
-				calendar.fullCalendar('removeEvents' , function(ev){
-					return (ev._id == calEvent._id);
-				})
-				modal.modal("hide");
-			});
 			
-			modal.modal('show').on('hidden', function(){
-				modal.remove();
-			});
+
+			
+			$.ajax({
+				
+				type: 'POST',
+				url: '{:Url('index/count/calendarDobzr')}?start='+calEvent.start+'&end='+calEvent.end+'&id='+calEvent.id,
+				success: function(data) {
+					bootbox.dialog({
+						message: data,
+						title: "旷课学生情况",
+						buttons: {
+							success: {
+								label: "关闭",
+								className: "btn btn-sm btn-danger pull-right",
+							},
+						}
+					});
+    }
+});
+
+			
+		
+		
+			
+			
+			
 
 
-			//console.log(calEvent.id);
-			//console.log(jsEvent);
-			//console.log(view);
-
-			// change the border color just for fun
-			//$(this).css('border-color', 'red');
+			
 
 		}
 		

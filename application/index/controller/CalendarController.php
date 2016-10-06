@@ -9,6 +9,7 @@ class CalendarController  extends IndexController{
 
 	public function index()
 	{
+		$teacherid=input('session.teacherId');
 		return view();
 	}
 
